@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/style.css">
+    <title>Document</title>
+</head>
+<script src="js/slider.js"></script>
+<body>
+    <div id="app">
+        <div class="pages" :class="{darkMode: themMode === 'тёмная'}">
+            <div class="hamburger-menu">
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                  <span></span>
+                </label>
+            
+                <ul class="menu__box">
+                  <li><button class="menu__item">Профиль</button></li>
+                  <!-- <li><button class="menu__item">Положение</button></li> -->
+                  <li><button class="menu__item" @click="modWindowEnable = true;">Заявка</button></li>
+                  <li><button class="menu__item">Новости</button></li>
+                  <li><button class="menu__item" @click="page = 'login'">Вход/Регистрация</button></li>
+                  <li><button class="menu__item" @click="changeThem();">Тема:{{themMode}}</button></li>
+                </ul>
+            </div>
+            <div class="mainPage" :class="{active: page === 'main'}">
+                <div class="modal" :class="{active: modWindowEnable}">
+                    <div class="modal__window">
+                        <button class="modal__close" @click="modWindowEnable = false; checkForm(2);">
+                            <div class="modal__close__line"></div>
+                            <div class="modal__close__line"></div>
+                        </button>
+                        <form action="" class="form" onsubmit="return false">
+                            <h1 class="form__title reg">Заявка</h1>
+                            <div class="form__group">
+                                <div class="warning" :class="{active: warnings[0]}">
+                                    <button class="warning__close" @click="warnings[0] = false">
+                                        <div class="warning__close__line"></div>
+                                        <div class="warning__close__line"></div>
+                                    </button>
+                                    <div class="warning__text">Поле пустое</div>
+                                    <div class="warning__arrow"></div>
+                                </div>
+                                <input class="form__input" @click="warnings[0] = false" placeholder=" ">
+                                <label class="form__label">Описание заявки</label>
+                            </div>
+                            <input type="submit" value="Отправить" class="form__button" @click="checkForm(3)">
+                        </form>
+                    </div>
+                </div>
+                <header>
+                    <div class="convex navMenu">
+                        <img src="assets\logo.png" alt="psd" class="logoIcon">
+                        <nav>
+                            <button class="navText">Новости</button>   
+                            <button class="navText" @click="modWindowEnable = true;">Заявка</button>
+                            <button class="navText" @click="page = 'login'">Вход/Регистрация</button>
+                            <button class="navText" @click="changeThem();">Тема:{{themMode}}</button>
+                            <button class="navText lastNavText">Профиль</button>
+                        </nav>       
+                    </div>
+                </header>
+                <main>
+                    <div class="slider">
+                        <div class="slides">
+                            <input type="radio" name="r" id="r1" checked>
+                            <input type="radio" name="r" id="r2">
+            
+                            <div class="slide s1"><img src="assets\slide1.png" alt=""></div>
+                            <div class="slide"><img src="assets\slide2.png" alt=""></div>
+                        </div>
+            
+                        <div class="navigation">
+                            <label for="r1" class="bar" id="l1"></label>
+                            <label for="r2" class="bar b1" id="l2"></label>
+                        </div>
+                    </div>
+                    <div class="container newsLabel">
+                        <h2 class="newsLabel__text">Новости</h2>
+                    </div>
+                    <div class="news container">
+                        <div class="leftNews">
+                            <div class="convex newsBlock firstNews"><img class="newsPicture" src="assets/news2.png" alt=""></div>
+                            <div class="convex newsBlock secondNews"><img class="newsPicture" src="assets/news3.png" alt=""></div>
+                        </div>
+                        <div class="rightNews">
+                            <div class="convex newsBlock thirdNews"><img class="newsPicture" src="assets/news1.png" alt=""></div>
+                            <div class="convex newsBlock fourthNews"><img class="newsPicture" src="assets/news4.png" alt=""></div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="container footer">
+                    <div>
+                        <h2 class="webName">climb_ossetia.ru</h2>
+                        <nav>
+                            <a class="navFoot" href="">Главная страница</a>
+                            <a class="navFoot" href="">Новости</a>
+                            <a class="navFoot" href="">Блог</a>
+                            <a class="navFoot" href="">Профиль</a>
+                        </nav>
+                        <div class="email">контактный e-mail: <a href="" class="emailLink">amirankalitcov@mail.ru</a></div>
+                    </div>
+                </footer>
+            </div>
+            <div class="loginPage" :class="{active: page === 'login'}">
+                <form action="" class="form convex" onsubmit="return false">
+                    <button class="buttonReturn" @click="page='main'"><div></div><div></div></button>
+                    <h1 class="form__title">Вход</h1>
+                    <div class="form__group">
+                        <div class="warning" :class="{active: warnings[1]}">
+                            <button class="warning__close" @click="warnings[1] = false">
+                                <div class="warning__close__line"></div>
+                                <div class="warning__close__line"></div>
+                            </button>
+                            <div class="warning__text">Поле обязательно к заполнению</div>
+                            <div class="warning__arrow"></div>
+                        </div>
+                        <input class="form__input" @click="warnings[1] = false" placeholder=" ">
+                        <label class="form__label">Email</label>
+                    </div>
+
+                    <div class="form__group">
+                        <div class="warning" :class="{active: warnings[2]}">
+                            <button class="warning__close" @click="warnings[2] = false">
+                                <div class="warning__close__line"></div>
+                                <div class="warning__close__line"></div>
+                            </button>
+                            <div class="warning__text">Поле обязательно к заполнению</div>
+                            <div class="warning__arrow"></div>
+                        </div>
+                        <input type="password" class="form__input" @click="warnings[2] = false" placeholder=" ">
+                        <label class="form__label">Пароль</label>
+                    </div>
+
+                    <input type="submit" value="Вход" class="form__button" @click="checkForm(0)">
+                    <button class="btnToRegistr" @click="page='registration'; checkForm(2);">Нет аккаунта? Зарегестрируйся!</button>
+                </form>
+            </div>
+            <div class="registrationPage" :class="{active: page === 'registration'}">
+                <form action="" class="form convex" onsubmit="return false">
+                    <button class="buttonReturn" @click="page='main'"><div></div><div></div></button>
+                    <h1 class="form__title reg">Регистрация</h1>
+                    <div class="form__group">
+                        <div class="warning" :class="{active: warnings[3]}">
+                            <button class="warning__close" @click="warnings[3] = false">
+                                <div class="warning__close__line"></div>
+                                <div class="warning__close__line"></div>
+                            </button>
+                            <div class="warning__text">Поле обязательно к заполнению</div>
+                            <div class="warning__arrow"></div>
+                        </div>
+                        <input class="form__input" @click="warnings[3] = false" placeholder=" ">
+                        <label class="form__label">Email</label>
+                    </div>
+
+                    <div class="form__group">
+                        <div class="warning" :class="{active: warnings[4]}">
+                            <button class="warning__close" @click="warnings[4] = false">
+                                <div class="warning__close__line"></div>
+                                <div class="warning__close__line"></div>
+                            </button>
+                            <div class="warning__text">Поле обязательно к заполнению</div>
+                            <div class="warning__arrow"></div>
+                        </div>
+                        <input type="password" class="form__input" @click="warnings[4] = false" placeholder=" ">
+                        <label class="form__label reg">Придумайте пароль</label>
+                    </div>
+
+                    <div class="form__group">
+                        <div class="warning" :class="{active: warnings[5]}">
+                            <button class="warning__close" @click="warnings[5] = false">
+                                <div class="warning__close__line"></div>
+                                <div class="warning__close__line"></div>
+                            </button>
+                            <div class="warning__text">Поле обязательно к заполнению</div>
+                            <div class="warning__arrow"></div>
+                        </div>
+                        <input type="password" class="form__input" @click="warnings[5] = false" placeholder=" ">
+                        <label class="form__label reg">Повторите пароль</label>
+                    </div>
+
+                    <input type="submit" value="Регистрация" class="form__button" @click="checkForm(1)">
+                    <button class="btnToRegistr" @click="page='login'; checkForm(2);">Вход</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/vue.global.js"></script>
+    <script src="/js/main.js" type="module"></script>
+</body>
+</html>
